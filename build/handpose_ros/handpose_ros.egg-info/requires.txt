@@ -1,0 +1,3 @@
+mediapipe
+pyrealsense2
+setuptools

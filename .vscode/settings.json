@@ -1,0 +1,17 @@
+{
+  "ros.distro": "humble",
+  "python.autoComplete.extraPaths": [
+    "/home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages",
+    "/home/daeyun/HandPose/install/handpose_interfaces/lib/python3.10/site-packages",
+    "/home/daeyun/HandPose/install/handlandmark_ros/lib/python3.10/site-packages",
+    "/opt/ros/humble/lib/python3.10/site-packages",
+    "/opt/ros/humble/local/lib/python3.10/dist-packages"
+  ],
+  "python.analysis.extraPaths": [
+    "/home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages",
+    "/home/daeyun/HandPose/install/handpose_interfaces/lib/python3.10/site-packages",
+    "/home/daeyun/HandPose/install/handlandmark_ros/lib/python3.10/site-packages",
+    "/opt/ros/humble/lib/python3.10/site-packages",
+    "/opt/ros/humble/local/lib/python3.10/dist-packages"
+  ]
+}

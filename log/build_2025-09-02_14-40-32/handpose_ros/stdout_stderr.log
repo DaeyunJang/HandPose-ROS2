@@ -1,0 +1,50 @@
+running egg_info
+creating ../../build/handpose_ros/handpose_ros.egg-info
+writing ../../build/handpose_ros/handpose_ros.egg-info/PKG-INFO
+writing dependency_links to ../../build/handpose_ros/handpose_ros.egg-info/dependency_links.txt
+writing entry points to ../../build/handpose_ros/handpose_ros.egg-info/entry_points.txt
+writing requirements to ../../build/handpose_ros/handpose_ros.egg-info/requires.txt
+writing top-level names to ../../build/handpose_ros/handpose_ros.egg-info/top_level.txt
+writing manifest file '../../build/handpose_ros/handpose_ros.egg-info/SOURCES.txt'
+reading manifest file '../../build/handpose_ros/handpose_ros.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file '../../build/handpose_ros/handpose_ros.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/daeyun/HandPose/build/handpose_ros/build
+creating /home/daeyun/HandPose/build/handpose_ros/build/lib
+creating /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros
+copying handpose_ros/hand_config_loader.py -> /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros
+copying handpose_ros/landmark_to_handpose.py -> /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros
+copying handpose_ros/__init__.py -> /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros
+copying handpose_ros/mediapipe_hands_node.py -> /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros
+copying handpose_ros/handpose_tf_broadcaster.py -> /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros
+running install
+running install_lib
+creating /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros
+copying /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros/hand_config_loader.py -> /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros
+copying /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros/landmark_to_handpose.py -> /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros
+copying /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros/__init__.py -> /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros
+copying /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros/mediapipe_hands_node.py -> /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros
+copying /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros/handpose_tf_broadcaster.py -> /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros
+byte-compiling /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros/hand_config_loader.py to hand_config_loader.cpython-310.pyc
+byte-compiling /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros/landmark_to_handpose.py to landmark_to_handpose.cpython-310.pyc
+byte-compiling /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros/mediapipe_hands_node.py to mediapipe_hands_node.cpython-310.pyc
+byte-compiling /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros/handpose_tf_broadcaster.py to handpose_tf_broadcaster.cpython-310.pyc
+running install_data
+creating /home/daeyun/HandPose/install/handpose_ros/share/ament_index
+creating /home/daeyun/HandPose/install/handpose_ros/share/ament_index/resource_index
+creating /home/daeyun/HandPose/install/handpose_ros/share/ament_index/resource_index/packages
+copying resource/handpose_ros -> /home/daeyun/HandPose/install/handpose_ros/share/ament_index/resource_index/packages
+copying package.xml -> /home/daeyun/HandPose/install/handpose_ros/share/handpose_ros
+creating /home/daeyun/HandPose/install/handpose_ros/share/handpose_ros/launch
+copying launch/handpose_launch.py -> /home/daeyun/HandPose/install/handpose_ros/share/handpose_ros/launch
+creating /home/daeyun/HandPose/install/handpose_ros/share/handpose_ros/config
+copying config/rviz_config.rviz -> /home/daeyun/HandPose/install/handpose_ros/share/handpose_ros/config
+running install_egg_info
+Copying ../../build/handpose_ros/handpose_ros.egg-info to /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros-0.0.0-py3.10.egg-info
+running install_scripts
+Installing handpose_tf_broadcaster script to /home/daeyun/HandPose/install/handpose_ros/lib/handpose_ros
+Installing mediapipe_hands_node script to /home/daeyun/HandPose/install/handpose_ros/lib/handpose_ros
+writing list of installed files to '/home/daeyun/HandPose/build/handpose_ros/install.log'

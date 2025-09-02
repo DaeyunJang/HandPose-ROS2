@@ -1,0 +1,51 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from handpose_interfaces/msg/HandLandmarks.msg
+// generated code does not contain a copyright notice
+
+#include "std_msgs/msg/Header.idl"
+
+module handpose_interfaces {
+  module msg {
+    struct HandLandmarks {
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "같은 프레임 내에서 손 인덱스")
+      int8 id;
+
+      @verbatim (language="comment", text=
+        "\"left\" | \"right\"")
+      string label;
+
+      @verbatim (language="comment", text=
+        "handedness score")
+      float score;
+
+      @verbatim (language="comment", text=
+        "입력 이미지 W")
+      uint32 width;
+
+      @verbatim (language="comment", text=
+        "입력 이미지 H")
+      uint32 height;
+
+      @verbatim (language="comment", text=
+        "21x3 을 1차원으로 평탄화 (length = 63)" "\n"
+        "(x,y,z) normalized, z: mediapipe scale")
+      sequence<float> landmarks_norm;
+
+      @verbatim (language="comment", text=
+        "(x,y,z) canonical/pixel; x in [0,W], y in [0,H], z in")
+      @unit (value="pixel of W")
+      sequence<float> landmarks_canon;
+
+      @verbatim (language="comment", text=
+        "(x,y,z) meter, origin=hand geometric center (없으면 빈 배열)")
+      sequence<float> landmarks_world;
+
+      @verbatim (language="comment", text=
+        "선택: multi-hands 정렬 유지용 인덱스(미사용시 -1)")
+      int32 handed_index;
+    };
+  };
+};

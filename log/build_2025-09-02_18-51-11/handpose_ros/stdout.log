@@ -1,0 +1,22 @@
+running egg_info
+writing ../../build/handpose_ros/handpose_ros.egg-info/PKG-INFO
+writing dependency_links to ../../build/handpose_ros/handpose_ros.egg-info/dependency_links.txt
+writing entry points to ../../build/handpose_ros/handpose_ros.egg-info/entry_points.txt
+writing requirements to ../../build/handpose_ros/handpose_ros.egg-info/requires.txt
+writing top-level names to ../../build/handpose_ros/handpose_ros.egg-info/top_level.txt
+reading manifest file '../../build/handpose_ros/handpose_ros.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file '../../build/handpose_ros/handpose_ros.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+copying config/rviz_config.rviz -> /home/daeyun/HandPose/install/handpose_ros/share/handpose_ros/config
+running install_egg_info
+removing '/home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/handpose_ros/handpose_ros.egg-info to /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros-0.0.0-py3.10.egg-info
+running install_scripts
+Installing handpose_tf_broadcaster script to /home/daeyun/HandPose/install/handpose_ros/lib/handpose_ros
+Installing mediapipe_hands_node script to /home/daeyun/HandPose/install/handpose_ros/lib/handpose_ros
+writing list of installed files to '/home/daeyun/HandPose/build/handpose_ros/install.log'

@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/daeyun/HandPose/install/handpose_interfaces/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/daeyun/HandPose/src/handpose_interfaces/include/**",
+        "/usr/include/**",
+        "/home/daeyun/colcon_env/HandPose/lib/python3.10/site-packages"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

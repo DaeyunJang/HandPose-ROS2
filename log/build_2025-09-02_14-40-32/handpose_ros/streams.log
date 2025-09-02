@@ -1,0 +1,52 @@
+[0.353s] Invoking command in '/home/daeyun/HandPose/src/handpose_ros': LD_LIBRARY_PATH=/home/daeyun/HandPose/install/handpose_interfaces/lib:/usr/local/cuda-12.9/lib64:/usr/local/cuda-12.3/lib64:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib PS1=(HandPose) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/daeyun/HandPose/build/handpose_ros/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages:/home/daeyun/HandPose/install/handpose_interfaces/lib/python3.10/site-packages:/home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/handpose_ros build --build-base /home/daeyun/HandPose/build/handpose_ros/build install --record /home/daeyun/HandPose/build/handpose_ros/install.log --single-version-externally-managed install_data
+[0.469s] running egg_info
+[0.469s] creating ../../build/handpose_ros/handpose_ros.egg-info
+[0.469s] writing ../../build/handpose_ros/handpose_ros.egg-info/PKG-INFO
+[0.469s] writing dependency_links to ../../build/handpose_ros/handpose_ros.egg-info/dependency_links.txt
+[0.469s] writing entry points to ../../build/handpose_ros/handpose_ros.egg-info/entry_points.txt
+[0.469s] writing requirements to ../../build/handpose_ros/handpose_ros.egg-info/requires.txt
+[0.469s] writing top-level names to ../../build/handpose_ros/handpose_ros.egg-info/top_level.txt
+[0.469s] writing manifest file '../../build/handpose_ros/handpose_ros.egg-info/SOURCES.txt'
+[0.470s] reading manifest file '../../build/handpose_ros/handpose_ros.egg-info/SOURCES.txt'
+[0.470s] adding license file 'LICENSE'
+[0.470s] writing manifest file '../../build/handpose_ros/handpose_ros.egg-info/SOURCES.txt'
+[0.470s] running build
+[0.470s] running build_py
+[0.470s] creating /home/daeyun/HandPose/build/handpose_ros/build
+[0.470s] creating /home/daeyun/HandPose/build/handpose_ros/build/lib
+[0.470s] creating /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros
+[0.471s] copying handpose_ros/hand_config_loader.py -> /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros
+[0.471s] copying handpose_ros/landmark_to_handpose.py -> /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros
+[0.471s] copying handpose_ros/__init__.py -> /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros
+[0.471s] copying handpose_ros/mediapipe_hands_node.py -> /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros
+[0.471s] copying handpose_ros/handpose_tf_broadcaster.py -> /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros
+[0.471s] running install
+[0.471s] running install_lib
+[0.471s] creating /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros
+[0.471s] copying /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros/hand_config_loader.py -> /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros
+[0.471s] copying /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros/landmark_to_handpose.py -> /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros
+[0.471s] copying /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros/__init__.py -> /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros
+[0.471s] copying /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros/mediapipe_hands_node.py -> /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros
+[0.471s] copying /home/daeyun/HandPose/build/handpose_ros/build/lib/handpose_ros/handpose_tf_broadcaster.py -> /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros
+[0.471s] byte-compiling /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros/hand_config_loader.py to hand_config_loader.cpython-310.pyc
+[0.472s] byte-compiling /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros/landmark_to_handpose.py to landmark_to_handpose.cpython-310.pyc
+[0.474s] byte-compiling /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros/__init__.py to __init__.cpython-310.pyc
+[0.474s] byte-compiling /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros/mediapipe_hands_node.py to mediapipe_hands_node.cpython-310.pyc
+[0.474s] byte-compiling /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros/handpose_tf_broadcaster.py to handpose_tf_broadcaster.cpython-310.pyc
+[0.475s] running install_data
+[0.475s] creating /home/daeyun/HandPose/install/handpose_ros/share/ament_index
+[0.475s] creating /home/daeyun/HandPose/install/handpose_ros/share/ament_index/resource_index
+[0.475s] creating /home/daeyun/HandPose/install/handpose_ros/share/ament_index/resource_index/packages
+[0.475s] copying resource/handpose_ros -> /home/daeyun/HandPose/install/handpose_ros/share/ament_index/resource_index/packages
+[0.475s] copying package.xml -> /home/daeyun/HandPose/install/handpose_ros/share/handpose_ros
+[0.475s] creating /home/daeyun/HandPose/install/handpose_ros/share/handpose_ros/launch
+[0.475s] copying launch/handpose_launch.py -> /home/daeyun/HandPose/install/handpose_ros/share/handpose_ros/launch
+[0.475s] creating /home/daeyun/HandPose/install/handpose_ros/share/handpose_ros/config
+[0.475s] copying config/rviz_config.rviz -> /home/daeyun/HandPose/install/handpose_ros/share/handpose_ros/config
+[0.478s] running install_egg_info
+[0.479s] Copying ../../build/handpose_ros/handpose_ros.egg-info to /home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages/handpose_ros-0.0.0-py3.10.egg-info
+[0.479s] running install_scripts
+[0.489s] Installing handpose_tf_broadcaster script to /home/daeyun/HandPose/install/handpose_ros/lib/handpose_ros
+[0.489s] Installing mediapipe_hands_node script to /home/daeyun/HandPose/install/handpose_ros/lib/handpose_ros
+[0.489s] writing list of installed files to '/home/daeyun/HandPose/build/handpose_ros/install.log'
+[0.501s] Invoked command in '/home/daeyun/HandPose/src/handpose_ros' returned '0': LD_LIBRARY_PATH=/home/daeyun/HandPose/install/handpose_interfaces/lib:/usr/local/cuda-12.9/lib64:/usr/local/cuda-12.3/lib64:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib PS1=(HandPose) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/daeyun/HandPose/build/handpose_ros/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages:/home/daeyun/HandPose/install/handpose_interfaces/lib/python3.10/site-packages:/home/daeyun/HandPose/install/handpose_ros/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/handpose_ros build --build-base /home/daeyun/HandPose/build/handpose_ros/build install --record /home/daeyun/HandPose/build/handpose_ros/install.log --single-version-externally-managed install_data

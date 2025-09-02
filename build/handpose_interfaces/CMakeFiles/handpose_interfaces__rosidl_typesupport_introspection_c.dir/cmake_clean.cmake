@@ -1,0 +1,17 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/handpose_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/handpose_interfaces/msg/detail/hand_landmarks__type_support.c.o"
+  "CMakeFiles/handpose_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/handpose_interfaces/msg/detail/hand_landmarks__type_support.c.o.d"
+  "CMakeFiles/handpose_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/handpose_interfaces/msg/detail/hands__type_support.c.o"
+  "CMakeFiles/handpose_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/handpose_interfaces/msg/detail/hands__type_support.c.o.d"
+  "libhandpose_interfaces__rosidl_typesupport_introspection_c.pdb"
+  "libhandpose_interfaces__rosidl_typesupport_introspection_c.so"
+  "rosidl_typesupport_introspection_c/handpose_interfaces/msg/detail/hand_landmarks__rosidl_typesupport_introspection_c.h"
+  "rosidl_typesupport_introspection_c/handpose_interfaces/msg/detail/hand_landmarks__type_support.c"
+  "rosidl_typesupport_introspection_c/handpose_interfaces/msg/detail/hands__rosidl_typesupport_introspection_c.h"
+  "rosidl_typesupport_introspection_c/handpose_interfaces/msg/detail/hands__type_support.c"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang C)
+  include(CMakeFiles/handpose_interfaces__rosidl_typesupport_introspection_c.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

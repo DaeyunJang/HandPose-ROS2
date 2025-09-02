@@ -1,0 +1,7 @@
+{
+  "package_name": "handpose_interfaces",
+  "non_idl_tuples": [
+    "/home/daeyun/HandPose/src/handpose_interfaces:msg/HandLandmarks.msg",
+    "/home/daeyun/HandPose/src/handpose_interfaces:msg/Hands.msg"
+  ]
+}
