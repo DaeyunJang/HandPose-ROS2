@@ -1,4 +1,5 @@
 from setuptools import find_packages, setup
+import os, glob
 
 package_name = 'handpose_ros'
 
@@ -13,9 +14,14 @@ setup(
         # package.xml 설치
         ('share/' + package_name, ['package.xml']),
         # launch 파일 설치 (있다면)
-        ('share/' + package_name + '/launch', ['launch/handpose_launch.py']),
+        # ('share/' + package_name + '/launch', ['launch/handpose_launch.py']),
+        (os.path.join('share', package_name, 'launch'), glob.glob(os.path.join('launch', '*launch.[pxy][yma]*'))),
         # configuration files
         ('share/' + package_name + '/config', ['config/rviz_config.rviz']),
+        # ('share/' + package_name + package_name, ['config/finger_config.rviz']),
+        (os.path.join('share', package_name), [f'{package_name}/config/finger_config.json']),
+        
+        
     ],
     install_requires=['setuptools',
                       'mediapipe',

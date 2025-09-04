@@ -8,8 +8,13 @@ import sys, os
 sys.path.insert(0, os.path.dirname(__file__))
 from hand_config_loader import get_config, build_finger_joint_map  # ← 외부 로더 사용
 
+# from algebra_utils import *
+
 # ====================== Config를 모듈 전역에서 미리 준비 ======================
 _CFG = get_config()
+print(f'=====================================================================================')
+print(f'{_CFG}')
+print(f'=====================================================================================')
 
 # _WRIST_INDEX: int = int(_CFG["wrist_index"])
 # _JOINT_NAMES: List[str] = list(_CFG.get("joint_names", ["mcp", "pip", "dip", "tip"]))
@@ -152,6 +157,8 @@ class LandmarkToHandPose:
         x_hat = normalize(normalize((p5 - p0).ravel()) + normalize((p17 - p0).ravel()))
         z_hat = normalize(np.cross(x_hat, y_hat))
 
+        ## DY
+        # 참고: Rotation matrix의 각 열 성분은 각각 unit vector x,y,z를 의미
         R_input2wrist = np.stack([x_hat, y_hat, z_hat], axis=1)
         t_input2wrist = p0.ravel()
         T_input2wrist = make_homogeneous(R_input2wrist, t_input2wrist)

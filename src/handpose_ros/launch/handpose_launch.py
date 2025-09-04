@@ -53,7 +53,7 @@ def generate_launch_description():
             parameters=[{
                 'hands_topic': 'hands/detections',
                 'camera_info_topic': '/camera/camera/color/camera_info',
-                'camera_frame': 'camera_color_frame',   # For TF name
+                'camera_frame': 'camera_color_optical_frame',   # For TF name
                 'tf.norm.enable': False,
                 'tf.canonical.enable': True,
                 'tf.canonical.scale': scale # 1/1280

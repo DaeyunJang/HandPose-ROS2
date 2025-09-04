@@ -5,7 +5,7 @@ from sensor_msgs.msg import Image, CameraInfo
 from geometry_msgs.msg import TransformStamped
 import numpy as np
 from cv_bridge import CvBridge
-import tf2_ros
+from tf2_ros import TransformBroadcaster
 from rcl_interfaces.msg import SetParametersResult
 
 from handpose_interfaces.msg import Hands
@@ -21,7 +21,7 @@ class HandPoseTFNode(Node):
         self.declare_parameter('use_depth', False)
         self.declare_parameter('depth_topic', '/camera/aligned_depth_to_color/image_raw')
         self.declare_parameter('camera_info_topic', '/camera/camera/color/camera_info')
-        self.declare_parameter('camera_frame', 'camera_color_frame')    # For TF name
+        self.declare_parameter('camera_frame', 'camera_color_optical_frame')    # For TF name
         self.declare_parameter('tf.norm.enable', True)    # For TF topic On/Off
         self.declare_parameter('tf.canonical.enable', True)    # For TF topic On/Off
         self.declare_parameter('tf.canonical.scale', 1/1280)
@@ -38,7 +38,7 @@ class HandPoseTFNode(Node):
         # callback function for update parameters
         self.add_on_set_parameters_callback(self.param_callback)
 
-        self.tf_broadcaster = tf2_ros.TransformBroadcaster(self)
+        self.tf_broadcaster = TransformBroadcaster(self)
 
         self.bridge = CvBridge()
         self.camera_info = CameraInfo()
@@ -135,18 +135,33 @@ class HandPoseTFNode(Node):
         def _publish_hand_tfs(label: str, frames, lm_norm, suffix: str):
             input_frame = self.camera_frame
             wrist_frame = f"hand_{label}_wrist_{suffix}"
-
-            # center of normalized frame w.r.t name of 'camera_frame' -> in my case: camera_color_frame (Sometimes camera_color_optical_frame)
-            T_cam2center = np.eye(4, dtype=np.float32)
-            T_cam2center[0, 3] = 0.5 * (self.camera_info.width / self.camera_info.width)
-            T_cam2center[1, 3] = 0.5 * (self.camera_info.height / self.camera_info.width)
-            T_cam2center[2, 3] = 0
-            self._send_tf(parent=input_frame, child=f'normalized_{input_frame}_center',
-                          transform_matrix=T_cam2center, stamp=stamp)
             
+            # DY
+            # Center of normalized frame w.r.t name of 'camera_frame' 
+            #   -> in my case: camera_color_frame (Sometimes camera_color_optical_frame)
+            # T_cam2center = np.eye(4, dtype=np.float32)
+            # T_cam2center[0, 3] = 0.5 * (self.camera_info.width / self.camera_info.width)
+            # T_cam2center[1, 3] = 0.5 * (self.camera_info.height / self.camera_info.width)
+            # T_cam2center[2, 3] = 0
+            # self._send_tf(parent=input_frame, child=f'normalized_{input_frame}_center',
+            #               transform_matrix=T_cam2center, stamp=stamp)
+            
+            #################################################################################
             # input → wrist
+            # 카메라 이미지는 x, y축이 0부터시작해서 해상도만큼 까지라 손목좌표계가 0~1 사이에 있음
+            # 실제 realsense의 경우, camera_color_optical_frame의 위치와 맞춰주기 위해서 width와 height의 절반으로 원점을 일치시켜줌
+            # 카메라 이미지는 좌측상단이 원점이고 우측으로 x, 아래로 y임
+            ####### 중요 #######
+            # 일단 기준 프레임은 camera_color_optical_frame으로 계산함.
+            # 그리고 camera_color_frame을 기준으로 보면 ROS2 시스템에서 정의한 카메라좌표계기준이 되기는 함.
+            # In ros2 TF system, coordinate system was transformed by Roty(-90)*Rotx(90) or same as 'camera_color_frame'
+            # https://github.com/IntelRealSense/realsense-ros?tab=readme-ov-file#ros2robot-vs-opticalcamera-coordination-systems
+            T_input2wrist = frames.T_input2wrist.copy()
+            T_input2wrist[0, 3] += 0.5 * (self.camera_info.width / self.camera_info.width)
+            T_input2wrist[1, 3] -= 0.5 * (self.camera_info.height / self.camera_info.width)
+            
             self._send_tf(parent=input_frame, child=wrist_frame,
-                        transform_matrix=frames.T_input2wrist, stamp=stamp)
+                        transform_matrix=T_input2wrist, stamp=stamp)
 
             # wrist → joints
             for (finger, jname), T in frames.T_wrist2joint.items():

@@ -50,7 +50,7 @@ Visualization Manager:
         Z: 0
       Plane: XY
       Plane Cell Count: 10
-      Reference Frame: camera_color_frame
+      Reference Frame: camera_color_optical_frame
       Value: true
     - Class: rviz_default_plugins/TF
       Enabled: true
@@ -60,7 +60,7 @@ Visualization Manager:
         camera_color_frame:
           Value: true
         camera_color_optical_frame:
-          Value: false
+          Value: true
         camera_depth_frame:
           Value: false
         camera_depth_optical_frame:
@@ -151,6 +151,8 @@ Visualization Manager:
           Value: true
         hand_right_wrist_canon:
           Value: true
+        normalized_camera_color_optical_frame_center:
+          Value: true
       Marker Scale: 0.05000000074505806
       Name: TF
       Show Arrows: false
@@ -160,88 +162,89 @@ Visualization Manager:
         camera_link:
           camera_color_frame:
             camera_color_optical_frame:
-              {}
-            hand_left_wrist_canon:
-              hand_left_index_dip_canon:
-                {}
-              hand_left_index_mcp_canon:
-                {}
-              hand_left_index_pip_canon:
-                {}
-              hand_left_index_tip_canon:
-                {}
-              hand_left_middle_dip_canon:
-                {}
-              hand_left_middle_mcp_canon:
-                {}
-              hand_left_middle_pip_canon:
-                {}
-              hand_left_middle_tip_canon:
-                {}
-              hand_left_pinky_dip_canon:
-                {}
-              hand_left_pinky_mcp_canon:
-                {}
-              hand_left_pinky_pip_canon:
-                {}
-              hand_left_pinky_tip_canon:
-                {}
-              hand_left_ring_dip_canon:
-                {}
-              hand_left_ring_mcp_canon:
-                {}
-              hand_left_ring_pip_canon:
-                {}
-              hand_left_ring_tip_canon:
-                {}
-              hand_left_thumb_dip_canon:
-                {}
-              hand_left_thumb_mcp_canon:
-                {}
-              hand_left_thumb_pip_canon:
-                {}
-              hand_left_thumb_tip_canon:
-                {}
-            hand_right_wrist_canon:
-              hand_right_index_dip_canon:
-                {}
-              hand_right_index_mcp_canon:
-                {}
-              hand_right_index_pip_canon:
-                {}
-              hand_right_index_tip_canon:
-                {}
-              hand_right_middle_dip_canon:
-                {}
-              hand_right_middle_mcp_canon:
-                {}
-              hand_right_middle_pip_canon:
-                {}
-              hand_right_middle_tip_canon:
-                {}
-              hand_right_pinky_dip_canon:
-                {}
-              hand_right_pinky_mcp_canon:
-                {}
-              hand_right_pinky_pip_canon:
-                {}
-              hand_right_pinky_tip_canon:
-                {}
-              hand_right_ring_dip_canon:
-                {}
-              hand_right_ring_mcp_canon:
-                {}
-              hand_right_ring_pip_canon:
-                {}
-              hand_right_ring_tip_canon:
-                {}
-              hand_right_thumb_dip_canon:
-                {}
-              hand_right_thumb_mcp_canon:
-                {}
-              hand_right_thumb_pip_canon:
-                {}
-              hand_right_thumb_tip_canon:
+              hand_left_wrist_canon:
+                hand_left_index_dip_canon:
+                  {}
+                hand_left_index_mcp_canon:
+                  {}
+                hand_left_index_pip_canon:
+                  {}
+                hand_left_index_tip_canon:
+                  {}
+                hand_left_middle_dip_canon:
+                  {}
+                hand_left_middle_mcp_canon:
+                  {}
+                hand_left_middle_pip_canon:
+                  {}
+                hand_left_middle_tip_canon:
+                  {}
+                hand_left_pinky_dip_canon:
+                  {}
+                hand_left_pinky_mcp_canon:
+                  {}
+                hand_left_pinky_pip_canon:
+                  {}
+                hand_left_pinky_tip_canon:
+                  {}
+                hand_left_ring_dip_canon:
+                  {}
+                hand_left_ring_mcp_canon:
+                  {}
+                hand_left_ring_pip_canon:
+                  {}
+                hand_left_ring_tip_canon:
+                  {}
+                hand_left_thumb_dip_canon:
+                  {}
+                hand_left_thumb_mcp_canon:
+                  {}
+                hand_left_thumb_pip_canon:
+                  {}
+                hand_left_thumb_tip_canon:
+                  {}
+              hand_right_wrist_canon:
+                hand_right_index_dip_canon:
+                  {}
+                hand_right_index_mcp_canon:
+                  {}
+                hand_right_index_pip_canon:
+                  {}
+                hand_right_index_tip_canon:
+                  {}
+                hand_right_middle_dip_canon:
+                  {}
+                hand_right_middle_mcp_canon:
+                  {}
+                hand_right_middle_pip_canon:
+                  {}
+                hand_right_middle_tip_canon:
+                  {}
+                hand_right_pinky_dip_canon:
+                  {}
+                hand_right_pinky_mcp_canon:
+                  {}
+                hand_right_pinky_pip_canon:
+                  {}
+                hand_right_pinky_tip_canon:
+                  {}
+                hand_right_ring_dip_canon:
+                  {}
+                hand_right_ring_mcp_canon:
+                  {}
+                hand_right_ring_pip_canon:
+                  {}
+                hand_right_ring_tip_canon:
+                  {}
+                hand_right_thumb_dip_canon:
+                  {}
+                hand_right_thumb_mcp_canon:
+                  {}
+                hand_right_thumb_pip_canon:
+                  {}
+                hand_right_thumb_tip_canon:
+                  {}
+              normalized_camera_color_optical_frame_center:
                 {}
           camera_depth_frame:
             camera_depth_optical_frame:
@@ -265,7 +268,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: camera_color_frame
+    Fixed Frame: camera_color_optical_frame
     Frame Rate: 60
   Name: root
   Tools:
@@ -308,16 +311,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.1120989322662354
+      Distance: 0.5021786093711853
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.4194914400577545
-        Y: 0.5112210512161255
-        Z: 0.1811126321554184
+        X: -0.0560135692358017
+        Y: -0.011548331007361412
+        Z: 0.18138323724269867
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
@@ -326,7 +329,7 @@ Visualization Manager:
       Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.5704164505004883
+      Yaw: 1.5704233646392822
     Saved: ~
 Window Geometry:
   Displays:

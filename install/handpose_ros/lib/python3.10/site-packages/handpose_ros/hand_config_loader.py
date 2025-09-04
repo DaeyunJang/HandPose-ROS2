@@ -27,10 +27,10 @@ def _find_config_path() -> str | None:
     if env_p and os.path.isfile(env_p):
         return env_p
     here = os.path.abspath(os.path.dirname(__file__))
-    cand = os.path.join(here, "config.json")
+    cand = os.path.join(here, "finger_config.json")
     if os.path.isfile(cand):
         return cand
-    cand = os.path.join(os.getcwd(), "config.json")
+    cand = os.path.join(os.getcwd(), "finger_config.json")
     if os.path.isfile(cand):
         return cand
     return None
@@ -38,6 +38,9 @@ def _find_config_path() -> str | None:
 @lru_cache(maxsize=1)
 def get_config() -> Dict[str, Any]:
     path = _find_config_path()
+    print(f'=====================================================================================')
+    print(f'config path: {path}')
+    print(f'=====================================================================================')
     if not path:
         return _DEFAULT
     try:
