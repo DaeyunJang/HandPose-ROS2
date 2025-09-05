@@ -39,8 +39,8 @@ def generate_launch_description():
             parameters=[{
                 'image_topic': '/camera/camera/color/image_raw',
                 'max_num_hands': 2,
-                'min_detection_confidence': 0.8,
-                'min_tracking_confidence': 0.8,
+                'min_detection_confidence': 0.95,
+                'min_tracking_confidence': 0.95,
                 # 'draw': False, # Not use
                 'flip_image': True,
             }]

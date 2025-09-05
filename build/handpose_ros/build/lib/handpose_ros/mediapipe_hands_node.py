@@ -21,8 +21,8 @@ class MediaPipeHandsNode(Node):
 
         self.declare_parameter('image_topic', '/camera/camera/color/image_raw')
         self.declare_parameter('max_num_hands', 2)
-        self.declare_parameter('min_detection_confidence', 0.8)
-        self.declare_parameter('min_tracking_confidence', 0.8)
+        self.declare_parameter('min_detection_confidence', 0.95)
+        self.declare_parameter('min_tracking_confidence', 0.95)
         self.declare_parameter('draw', False)  # 디버그용
         self.declare_parameter('flip_image', True)   # flip image
 
