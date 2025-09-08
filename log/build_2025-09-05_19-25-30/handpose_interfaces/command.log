@@ -1,6 +1,0 @@
-Invoking command in '/home/daeyun/HandPose/build/handpose_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/daeyun/HandPose/src/handpose_interfaces -DCMAKE_INSTALL_PREFIX=/home/daeyun/HandPose/install/handpose_interfaces
-Invoked command in '/home/daeyun/HandPose/build/handpose_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/daeyun/HandPose/src/handpose_interfaces -DCMAKE_INSTALL_PREFIX=/home/daeyun/HandPose/install/handpose_interfaces
-Invoking command in '/home/daeyun/HandPose/build/handpose_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/daeyun/HandPose/build/handpose_interfaces -- -j24 -l24
-Invoked command in '/home/daeyun/HandPose/build/handpose_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/daeyun/HandPose/build/handpose_interfaces -- -j24 -l24
-Invoking command in '/home/daeyun/HandPose/build/handpose_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/daeyun/HandPose/build/handpose_interfaces
-Invoked command in '/home/daeyun/HandPose/build/handpose_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/daeyun/HandPose/build/handpose_interfaces

@@ -1,4 +1,0 @@
-[console_scripts]
-handpose_tf_broadcaster = handpose_ros.handpose_tf_broadcaster:main
-mediapipe_hands_node = handpose_ros.mediapipe_hands_node:main
-

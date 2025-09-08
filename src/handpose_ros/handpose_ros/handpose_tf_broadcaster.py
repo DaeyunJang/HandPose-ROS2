@@ -24,7 +24,12 @@ class HandPoseTFNode(Node):
         self.declare_parameter('camera_frame', 'camera_color_optical_frame')    # For TF name
         self.declare_parameter('tf.norm.enable', True)    # For TF topic On/Off
         self.declare_parameter('tf.canonical.enable', True)    # For TF topic On/Off
-        self.declare_parameter('tf.canonical.scale', 1/1280)
+        self.declare_parameter('tf.canonical_norm.enable', True)    # For TF topic On/Off
+        self.declare_parameter('tf.canonical_norm.scale', 1/1280)
+        self.declare_parameter('tf.user_defined.enable', True)    # For TF topic On/Off
+        self.declare_parameter('tf.user_defined.scale', 0.06/0.5)
+        
+        self.declare_parameter('tf.user_defined.suffix', 'gripper_scale')
 
         self.hands_topic = self.get_parameter('hands_topic').get_parameter_value().string_value
         self.use_depth = bool(self.get_parameter('use_depth').value)
@@ -33,7 +38,11 @@ class HandPoseTFNode(Node):
         self.camera_frame = self.get_parameter('camera_frame').get_parameter_value().string_value
         self.tf_norm_enable = self.get_parameter('tf.norm.enable').value
         self.tf_canon_enable = self.get_parameter('tf.canonical.enable').value
-        self.tf_canon_scale = self.get_parameter('tf.canonical.scale').value
+        self.tf_canon_norm_enable = self.get_parameter('tf.canonical_norm.enable').value
+        self.tf_canon_norm_scale = self.get_parameter('tf.canonical_norm.scale').value
+        self.tf_user_defined_enable = self.get_parameter('tf.user_defined.enable').value
+        self.tf_user_defined_scale = self.get_parameter('tf.user_defined.scale').value
+        self.tf_user_defined_suffix = self.get_parameter('tf.user_defined.suffix').get_parameter_value().string_value
         
         # callback function for update parameters
         self.add_on_set_parameters_callback(self.param_callback)
@@ -132,7 +141,7 @@ class HandPoseTFNode(Node):
         stamp = msg.header.stamp
 
         # 👇 여기 안에 중첩 함수 정의
-        def _publish_hand_tfs(label: str, frames, lm_norm, suffix: str):
+        def _publish_hand_tfs(label: str, frames, suffix: str):
             input_frame = self.camera_frame
             wrist_frame = f"hand_{label}_wrist_{suffix}"
             
@@ -157,6 +166,8 @@ class HandPoseTFNode(Node):
             # In ros2 TF system, coordinate system was transformed by Roty(-90)*Rotx(90) or same as 'camera_color_frame'
             # https://github.com/IntelRealSense/realsense-ros?tab=readme-ov-file#ros2robot-vs-opticalcamera-coordination-systems
             T_input2wrist = frames.T_input2wrist.copy()
+            # T_input2wrist[0, 3] += (self.camera_info.width / self.camera_info.width)
+            # T_input2wrist[1, 3] -= (self.camera_info.height / self.camera_info.width)
             T_input2wrist[0, 3] += 0.5 * (self.camera_info.width / self.camera_info.width)
             T_input2wrist[1, 3] -= 0.5 * (self.camera_info.height / self.camera_info.width)
             
@@ -168,19 +179,19 @@ class HandPoseTFNode(Node):
                 child = f"hand_{label}_{finger}_{jname}_{suffix}"
                 self._send_tf(parent=wrist_frame, child=child, transform_matrix=T, stamp=stamp)
 
-            # (옵션) depth anchoring → norm 좌표계 wrist 픽셀 기준
-            if self.use_depth and (self.depth is not None) and (self.K is not None):
-                u, v = float(lm_norm[0, 0]), float(lm_norm[0, 1])
-                Z = self._depth_at(u, v, ksize=9)
-                if np.isfinite(Z) and Z > 0:
-                    fx, fy, cx, cy = self.K
-                    p_cam = self._backproject(u, v, Z, fx, fy, cx, cy)
-                    T_cam2wrist = np.eye(4, dtype=np.float32)
-                    T_cam2wrist[:3, 3] = p_cam
-                    self._send_tf(parent=self.camera_frame,
-                                child=wrist_frame,
-                                transform_matrix=T_cam2wrist,
-                                stamp=stamp)
+            # # (옵션) depth anchoring → norm 좌표계 wrist 픽셀 기준
+            # if self.use_depth and (self.depth is not None) and (self.K is not None):
+            #     u, v = float(lm_norm[0, 0]), float(lm_norm[0, 1])
+            #     Z = self._depth_at(u, v, ksize=9)
+            #     if np.isfinite(Z) and Z > 0:
+            #         fx, fy, cx, cy = self.K
+            #         p_cam = self._backproject(u, v, Z, fx, fy, cx, cy)
+            #         T_cam2wrist = np.eye(4, dtype=np.float32)
+            #         T_cam2wrist[:3, 3] = p_cam
+            #         self._send_tf(parent=self.camera_frame,
+            #                     child=wrist_frame,
+            #                     transform_matrix=T_cam2wrist,
+            #                     stamp=stamp)
                     
         for hand in msg.hands:
             """Left and Right hand only
@@ -205,14 +216,28 @@ class HandPoseTFNode(Node):
             if self.tf_norm_enable:
                 solver.update_landmarks(lm_norm)
                 frames_norm = solver.compute(label=label)
-                _publish_hand_tfs(label, frames_norm, lm_canon, suffix="norm")
+                _publish_hand_tfs(label, frames_norm, suffix="norm")
 
-            # canonical 기반 - 정규화는 해야함.
+            # canonical 기반
             if self.tf_canon_enable:
-                solver.update_landmarks(lm_canon * self.tf_canon_scale)
+                solver.update_landmarks(lm_canon)
                 frames_canon = solver.compute(label=label)
-                _publish_hand_tfs(label, frames_canon, lm_canon, suffix="canon")
-                
+                _publish_hand_tfs(label, frames_canon, suffix="canon")
+
+            # canonical을 정규화
+            if self.tf_canon_norm_enable:
+                solver.update_landmarks(lm_canon * self.tf_canon_norm_scale)
+                frames_canon = solver.compute(label=label)
+                _publish_hand_tfs(label, frames_canon, suffix="canon_norm")
+
+            # canonical_norm을 기준으로 원하는 스케일 적용
+            # TBD
+            # 2025.09.07
+            if self.tf_user_defined_enable:
+                solver.update_landmarks(lm_canon * self.tf_canon_norm_scale * self.tf_user_defined_scale)
+                frames_user_defined = solver.compute(label=label)
+                _publish_hand_tfs(label, frames_user_defined, suffix=self.tf_user_defined_suffix)
+
     def param_callback(self, params):
         for param in params:
             if param.name == 'tf.norm.enable':
@@ -221,9 +246,12 @@ class HandPoseTFNode(Node):
             elif param.name == 'tf.canonical.enable':
                 self.tf_canon_enable = param.value
                 self.get_logger().info(f"Parameter '{param.name}' updated -> {self.tf_canon_enable}")
-            elif param.name == 'tf.canonical.scale':
-                self.tf_canon_scale = param.value
-                self.get_logger().info(f"Parameter '{param.name}' updated -> {self.tf_canon_scale}")
+            elif param.name == 'tf.canonical_norm.enable':
+                self.tf_canon_norm_enable = param.value
+                self.get_logger().info(f"Parameter '{param.name}' updated -> {self.tf_canon_norm_enable}")
+            elif param.name == 'tf.canonical_norm.scale':
+                self.tf_canon_norm_scale = param.value
+                self.get_logger().info(f"Parameter '{param.name}' updated -> {self.tf_canon_norm_scale}")
 
         return SetParametersResult(successful=True)
 
