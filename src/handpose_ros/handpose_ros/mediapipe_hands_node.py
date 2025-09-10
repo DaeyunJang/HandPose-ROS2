@@ -33,7 +33,8 @@ class MediaPipeHandsNode(Node):
         self.draw = bool(self.get_parameter('draw').value)
         self.flip = bool(self.get_parameter('flip_image').value)  # ★ 추가
 
-        self.pub = self.create_publisher(Hands, 'hands/detections', 1)
+        self.publisher_topic_name = "hands/detections"
+        self.pub = self.create_publisher(Hands, self.publisher_topic_name, 1)
         self.bridge = CvBridge()
 
         self.sub = self.create_subscription(Image, self.image_topic, self.cb_image, 1)
@@ -49,7 +50,13 @@ class MediaPipeHandsNode(Node):
         self.mp_styles = mp.solutions.drawing_styles
         self.pub_mp_overlay_image = self.create_publisher(Image, 'mp_overlay_image', 1)
         
-        self.get_logger().info(f"[mediapipe] subscribe: {self.image_topic}")
+        self.get_logger().info(f"[mediapipe] subscribe image_topic: {self.image_topic}")
+        self.get_logger().info(f"[mediapipe] max_num_hands: {self.max_hands}")
+        self.get_logger().info(f"[mediapipe] min_detection_confidence: {self.det_conf}")
+        self.get_logger().info(f"[mediapipe] min_tracking_confidence: {self.trk_conf}")
+        self.get_logger().info(f"[mediapipe] draw: {self.draw}")
+        self.get_logger().info(f"[mediapipe] flip_image: {self.flip}")
+        self.get_logger().info(f"[mediapipe] publisher topic name: {self.publisher_topic_name}")
         self.get_logger().info(f"[mediapipe] MediaPipiHandsNode is created.")
 
     @staticmethod

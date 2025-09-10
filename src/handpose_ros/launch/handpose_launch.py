@@ -39,8 +39,8 @@ def generate_launch_description():
             parameters=[{
                 'image_topic': '/camera/camera/color/image_raw',
                 'max_num_hands': 2,
-                'min_detection_confidence': 0.95,
-                'min_tracking_confidence': 0.95,
+                'min_detection_confidence': 0.7,
+                'min_tracking_confidence': 0.7,
                 # 'draw': False, # Not use
                 'flip_image': True,
             }]
@@ -56,17 +56,16 @@ def generate_launch_description():
                 'camera_frame': 'camera_color_optical_frame',   # For TF name
                 'tf.norm.enable': False,
                 'tf.canonical.enable': False,
-                'tf.canonical_norm.enable': True,
+                'tf.canonical_norm.enable': False,
                 'tf.canonical_norm.scale': scale, # 1/1280
-                
-                # TBD
-                'tf.user_defined.enable': False,
-                'tf.user_defined.scale': 0.3/0.5,
-                'tf.user_defined.suffix': 'gripper_scale',
-                # Not use
-                # 'use_depth': True,  # True면 아래 두 토픽도 필요
-                # 'depth_topic': '/camera/aligned_depth_to_color/image_raw',
-                # 'camera_info_topic': '/camera/color/camera_info',
+                'tf.world_absolute_scale.enable': True,
+                'tf.world_absolute_scale.target_length': 0.06,  # meters
+                'tf.world_absolute_scale.finger_name': 'index',
+                'tf.world_absolute_scale.joint_name': 'mcp',
+                'tf.world_absolute_scale.eps': '1e-6',
+                'tf.world_absolute_scale.EMA_smooth_alpha': 0.3,    # percentage
+                'tf.world_absolute_scale.suffix': 'world_abs',
+                'tf.world_absolute_scale.max_scale_step': 0.0,
             }]
         ),
         # === RViz2 추가 ===

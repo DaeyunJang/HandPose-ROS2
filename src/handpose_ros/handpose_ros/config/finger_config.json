@@ -8,6 +8,21 @@
     "ring":   [13, 14, 15, 16],
     "pinky":  [17, 18, 19, 20]
   },
+
+  "_comment": "ROS2 parameters have higher priority than config values",
+  "world_absolute_scale": {
+    "enable": true,
+    "suffix": "world_abs",
+    "eps": 1e-6,
+    "smooth_alpha": 0.3,
+    "max_scale_step": 0.0,
+    "aggregate": "mean",
+    "rules": [
+      {"finger": "index",  "joint": "mcp", "length": 0.060},
+      {"finger": "middle", "joint": "mcp", "length": 0.060}
+    ]
+  },
+
   "palm_connections": [[0,1],[0,5],[0,9],[0,13],[0,17]],
   "tip_ids": [4, 8, 12, 16, 20],
   "finger_color_rgba": {
