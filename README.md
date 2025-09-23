@@ -1,5 +1,5 @@
 # Welcome to HandPose-ROS
-This is Handpose ROS Integration Project
+This is Handpose ROS Integration Project.  
 This system reconstructs hand joint coordinate frames from 21 hand landmarks. It includes both a standalone script version and a ROS 2 version.
 
 ## DEMO
