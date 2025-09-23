@@ -1,16 +1,17 @@
 # Welcome to HandPose-ROS
+This is Handpose ROS Integration Project
 This system reconstructs hand joint coordinate frames from 21 hand landmarks. It includes both a standalone script version and a ROS 2 version.
 
 ## DEMO
 <!-- https://github.com/user-attachments/assets/956f45fd-a752-4233-a894-6325916b71ae -->
 https://github.com/user-attachments/assets/b2a561e7-b902-4bd1-a802-426902151187
 
-# Handpose ROS Integration
-
 ## Summary
 This package integrates **MediaPipe Hands** with **ROS 2 (Humble)**.  
 It detects hand landmarks from a camera stream, scales them into canonical and world coordinates, builds per-joint coordinate frames, and publishes them into the ROS TF system for downstream robotics applications (e.g., teleoperation, grasp planning).
 
+#### License
+- MIT license
 ---
 
 ## Detail Logic
@@ -164,8 +165,8 @@ check `handpose_ros/config/params.yaml`
 | `depth_topic`                              | string | `/camera/aligned_depth_to_color/image_raw` | Depth image topic              |
 | `camera_info_topic`                        | string | `/camera/camera/color/camera_info`         | Camera info topic              |
 | `camera_frame`                             | string | `camera_color_optical_frame`               | TF frame name                  |
-| `tf.norm.enable`                           | bool   | True                                       | Enable normalized TF           |
-| `tf.canonical.enable`                      | bool   | True                                       | Enable canonical TF            |
+| `tf.norm.enable`                           | bool   | False                                      | Enable normalized TF           |
+| `tf.canonical.enable`                      | bool   | False                                      | Enable canonical TF            |
 | `tf.canonical_norm.enable`                 | bool   | True                                       | Enable canonical normalized TF |
 | `tf.canonical_norm.scale`                  | float  | `1/1280`                                   | Scale factor                   |
 | `tf.world_absolute_scale.enable`           | bool   | True                                       | Enable world absolute scaling  |
@@ -176,10 +177,4 @@ check `handpose_ros/config/params.yaml`
 | `tf.world_absolute_scale.EMA_smooth_alpha` | float  | 0.3                                        | Exponential smoothing alpha    |
 | `tf.world_absolute_scale.suffix`           | string | `world_abs`                                | TF suffix                      |
 | `tf.world_absolute_scale.max_scale_step`   | float  | 0.0                                        | Per-frame clamp                |
-
-
-
-
-
-
 
