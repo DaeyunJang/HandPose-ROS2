@@ -1,22 +1,42 @@
 #!/usr/bin/env python3
 """
 algebra_utils.py
-- 로봇 좌표계/선형대수 관련 자주 쓰이는 함수 모음
+- Collection of frequently used linear algebra / robotics coordinate system utilities
 """
 
 import math
 import numpy as np
 
-# ---------------------- 유틸 ----------------------
+# ---------------------- General utilities ----------------------
 def normalize(v: np.ndarray, eps: float = 1e-12) -> np.ndarray:
-    """벡터 정규화"""
+    """
+    Normalize a vector.
+
+    Args:
+        v (np.ndarray): input vector
+        eps (float): small epsilon to avoid division by zero
+
+    Returns:
+        np.ndarray: normalized vector, or original if norm < eps
+    """
     n = np.linalg.norm(v)
     return v if n < eps else (v / n)
 
 def angle_between_vectors(v1: np.ndarray, v2: np.ndarray,
                           normal: np.ndarray,
                           degrees: bool = False) -> float:
-    """두 벡터 사이의 부호 있는 각도 (normal 방향 기준)"""
+    """
+    Compute the signed angle between two vectors given a reference normal.
+
+    Args:
+        v1 (np.ndarray): first vector
+        v2 (np.ndarray): second vector
+        normal (np.ndarray): reference normal to determine sign
+        degrees (bool): if True, returns angle in degrees; otherwise radians
+
+    Returns:
+        float: signed angle between v1 and v2
+    """
     v1u = normalize(v1)
     v2u = normalize(v2)
     dot_prod = float(np.clip(np.dot(v1u, v2u), -1.0, 1.0))
@@ -26,27 +46,52 @@ def angle_between_vectors(v1: np.ndarray, v2: np.ndarray,
     return float(sign_dir * (np.rad2deg(theta_abs) if degrees else theta_abs))
 
 def make_homogeneous(rotm: np.ndarray, trans: np.ndarray) -> np.ndarray:
-    """회전행렬 + 평행이동 → 4x4 동차행렬"""
+    """
+    Construct a 4x4 homogeneous transformation matrix.
+
+    Args:
+        rotm (np.ndarray): 3x3 rotation matrix
+        trans (np.ndarray): 3x1 translation vector
+
+    Returns:
+        np.ndarray: 4x4 homogeneous transform
+    """
     T = np.eye(4)
     T[:3, :3] = rotm
     T[:3,  3] = trans.reshape(3)
     return T
 
 def make_inv_homogeneous(T: np.ndarray) -> np.ndarray:
-    """4x4 동차행렬 역행렬"""
+    """
+    Compute the inverse of a 4x4 homogeneous transform.
+
+    Args:
+        T (np.ndarray): 4x4 homogeneous transform
+
+    Returns:
+        np.ndarray: inverse transform
+    """
     Rm = T[:3, :3]
     t = T[:3, 3]
     Ti = np.eye(4)
-    Ti[:3,:3] = Rm.T
-    Ti[:3,3] = -Rm.T @ t
+    Ti[:3, :3] = Rm.T
+    Ti[:3, 3] = -Rm.T @ t
     return Ti
 
-# ---------------------- 회전/쿼터니언 ----------------------
+# ---------------------- Rotation / Quaternion utilities ----------------------
 def rotm_to_quat(R: np.ndarray):
     """
-    회전행렬(3x3 또는 4x4 상위 3x3) -> 쿼터니언 (qx, qy, qz, qw)
-    - trace>0 공식 + 대각원소 최대 분기 방식으로 수치 안정성 강화
-    - 최종 쿼터니언 정규화
+    Convert a rotation matrix to a quaternion (qx, qy, qz, qw).
+
+    Supports 3x3 or 4x4 (uses the upper 3x3 block). Uses the trace>0 formula
+    with branching on the dominant diagonal element to improve numerical stability.
+    The output quaternion is normalized.
+
+    Args:
+        R (np.ndarray): 3x3 or 4x4 rotation matrix
+
+    Returns:
+        tuple: (qx, qy, qz, qw)
     """
     R = np.asarray(R, dtype=float)
     if R.shape == (4, 4):

@@ -1,0 +1,38 @@
+mediapipe_hands_node:
+  ros__parameters:
+    # --- MediaPipeHandsNode ---
+    image_topic: /camera/camera/color/image_raw
+    max_num_hands: 2
+    min_detection_confidence: 0.7
+    min_tracking_confidence: 0.7
+    draw: true              # overlay for debugging
+    flip_image: true         # horizontal flip input
+    use_pointcloud: true     # enable PointCloud2 output
+
+handpose_tf_broadcaster:
+  ros__parameters:
+    # --- HandPoseTFNode (handpose_tf_broadcaster.py) ---
+    hands_topic: hands/detections
+    use_depth: false
+    depth_topic: /camera/aligned_depth_to_color/image_raw
+    camera_info_topic: /camera/camera/color/camera_info
+    camera_frame: camera_color_optical_frame
+
+    # Which TF variants to publish
+    tf.norm.enable: False
+    tf.canonical.enable: False
+
+    # canon_norm: apply only a base scale (no auto scaling)
+    # 기본값은 1/1280 (런치에서 image_width에 맞춰 override 가능)
+    tf.canonical_norm.enable: False
+    tf.canonical_norm.scale: 0.00078125   # 1/1280, 
+
+    # world_absolute_scale (per-hand absolute wrist→MCP scale)
+    tf.world_absolute_scale.enable: true
+    tf.world_absolute_scale.target_length: 0.06    # meters (e.g., 60 mm)
+    tf.world_absolute_scale.finger_name: index     # reference finger
+    tf.world_absolute_scale.joint_name: mcp        # reference joint
+    tf.world_absolute_scale.eps: 1.0e-6
+    tf.world_absolute_scale.EMA_smooth_alpha: 0.3  # EMA alpha (0=off)
+    tf.world_absolute_scale.suffix: world_abs
+    tf.world_absolute_scale.max_scale_step: 0.0    # per-frame change clamp (0=off)

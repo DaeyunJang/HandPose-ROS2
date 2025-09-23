@@ -7,18 +7,19 @@ from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 
 def generate_launch_description():
-    # Launch arguments (override 가능)
+    # --- Launch arguments (override-able) ---
     image_width   = LaunchConfiguration('image_width')
     image_height  = LaunchConfiguration('image_height')
     camera_fps    = LaunchConfiguration('camera_fps')
+    params_file   = LaunchConfiguration('params_file')
 
-    # scale = 1.0 / image_width  (float 타입 보장)
+    # scale = 1.0 / image_width  (ensure float)
     scale_value = ParameterValue(
         PythonExpression(['1.0 / ', image_width]),
         value_type=float
     )
 
-    # Realsense launch 포함 (권장 경로 스타일)
+    # Realsense launch
     realsense_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution([
@@ -33,11 +34,18 @@ def generate_launch_description():
         }.items()
     )
 
-    # RViz config 경로 (권장 경로 스타일)
+    # RViz config path
     rviz_config_path = PathJoinSubstitution([
         FindPackageShare('handpose_ros'),
         'config',
         'rviz_config.rviz'
+    ])
+
+    # params.yaml (default path under this package)
+    default_params_path = PathJoinSubstitution([
+        FindPackageShare('handpose_ros'),
+        'config',
+        'params.yaml'
     ])
 
     mediapipe_node = Node(
@@ -45,14 +53,9 @@ def generate_launch_description():
         executable='mediapipe_hands_node',
         name='mediapipe_hands_node',
         output='screen',
-        parameters=[{
-            'image_topic': '/camera/camera/color/image_raw',
-            'max_num_hands': 2,
-            'min_detection_confidence': 0.7,
-            'min_tracking_confidence': 0.7,
-            # 'draw': False,
-            'flip_image': True,
-        }]
+        # 1) load params.yaml
+        # 2) (옵션) 개별 오버라이드가 필요하면 dict 추가 가능
+        parameters=[params_file]
     )
 
     tf_broadcaster_node = Node(
@@ -60,23 +63,14 @@ def generate_launch_description():
         executable='handpose_tf_broadcaster',
         name='handpose_tf_broadcaster',
         output='screen',
-        parameters=[{
-            'hands_topic': 'hands/detections',
-            'camera_info_topic': '/camera/camera/color/camera_info',
-            'camera_frame': 'camera_color_optical_frame',
-            'tf.norm.enable': False,
-            'tf.canonical.enable': False,
-            'tf.canonical_norm.enable': False,
-            'tf.canonical_norm.scale': scale_value,            # 1 / image_width
-            'tf.world_absolute_scale.enable': True,
-            'tf.world_absolute_scale.target_length': 0.06,     # meters
-            'tf.world_absolute_scale.finger_name': 'index',
-            'tf.world_absolute_scale.joint_name': 'mcp',
-            'tf.world_absolute_scale.eps': 1e-6,
-            'tf.world_absolute_scale.EMA_smooth_alpha': 0.3,   # percentage
-            'tf.world_absolute_scale.suffix': 'world_abs',
-            'tf.world_absolute_scale.max_scale_step': 0.0,
-        }]
+        # 1) load params.yaml
+        # 2) override tf.canonical_norm.scale with 1.0 / image_width
+        parameters=[
+            params_file,
+            {
+                'tf.canonical_norm.scale': scale_value
+            }
+        ]
     )
 
     rviz_node = Node(
@@ -88,10 +82,15 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        # 인자 선언 (기본값: 기존 코드와 동일)
+        # Declare args (defaults preserve prior behavior)
         DeclareLaunchArgument('image_width',  default_value='1280'),
         DeclareLaunchArgument('image_height', default_value='720'),
         DeclareLaunchArgument('camera_fps',   default_value='30'),
+        DeclareLaunchArgument(
+            'params_file',
+            default_value=default_params_path,
+            description='Full path to the ROS 2 parameters file to use'
+        ),
 
         realsense_launch,
         mediapipe_node,

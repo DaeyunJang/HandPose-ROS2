@@ -18,6 +18,7 @@ setup(
         (os.path.join('share', package_name, 'launch'), glob.glob(os.path.join('launch', '*launch.[pxy][yma]*'))),
         # configuration files
         ('share/' + package_name + '/config', ['config/rviz_config.rviz']),
+        ('share/' + package_name + '/config', ['config/params.yaml']),
         # ('share/' + package_name + package_name, ['config/finger_config.rviz']),
         (os.path.join('share', package_name), [f'{package_name}/config/finger_config.json']),
         

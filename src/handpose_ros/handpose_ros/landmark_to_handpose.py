@@ -16,19 +16,6 @@ print(f'========================================================================
 print(f'{_CFG}')
 print(f'=====================================================================================')
 
-# _WRIST_INDEX: int = int(_CFG["wrist_index"])
-# _JOINT_NAMES: List[str] = list(_CFG.get("joint_names", ["mcp", "pip", "dip", "tip"]))
-
-# # 손가락 → 관절명 → 인덱스 맵 (예: {"index":{"mcp":5,"pip":6,"dip":7,"tip":8}, ...})
-# _FINGER_JOINT_MAP: Dict[str, Dict[str, int]] = build_finger_joint_map(_CFG)
-
-# # 색상: RGBA 배열을 tuple로 (matplotlib/pyqtgraph가 바로 사용 가능)
-# # config에 색이 없으면 [0,0,0,1]로 폴백
-# _FINGER_COLOR: Dict[str, tuple] = {
-#     finger: tuple(_CFG.get("finger_color_rgba", {}).get(finger, [0, 0, 0, 1]))
-#     for finger in _FINGER_JOINT_MAP.keys()
-# }
-
 # ---------------------- 유틸 ----------------------
 def normalize(v: np.ndarray, eps: float = 1e-12) -> np.ndarray:
     n = np.linalg.norm(v)
@@ -68,15 +55,13 @@ class HandFrames:
 # ---------------------- 메인 클래스 ----------------------
 class LandmarkToHandPose:
     """
-    MediaPipe 21 랜드마크를 입력으로 wrist 로컬 프레임과 각 조인트 프레임을 구성한다.
+    Configuration wrist frame (1) and each joint frame (20) from using 21 landmarks (mediapipe)
     """
     # ---- config 기반 상수 ----
     # WRIST_INDEX: int = _WRIST_INDEX
     # JOINT_NAMES: List[str] = _JOINT_NAMES
     # FINGER_JOINT_MAP: Dict[str, Dict[str, int]] = _FINGER_JOINT_MAP
     # FINGER_COLOR: Dict[str, tuple] = _FINGER_COLOR
-
-    # _CFG = get_config()
 
     WRIST_INDEX: int = _CFG["wrist_index"]
     JOINT_NAMES: List[str] = _CFG["joint_names"]
@@ -158,7 +143,7 @@ class LandmarkToHandPose:
         z_hat = normalize(np.cross(x_hat, y_hat))
 
         ## DY
-        # 참고: Rotation matrix의 각 열 성분은 각각 unit vector x,y,z를 의미
+        # cf) Each column of the rotation matrix represents a unit vector x,y,z repectively.
         R_input2wrist = np.stack([x_hat, y_hat, z_hat], axis=1)
         t_input2wrist = p0.ravel()
         T_input2wrist = make_homogeneous(R_input2wrist, t_input2wrist)
@@ -287,7 +272,7 @@ class LandmarkToHandPose:
         plt.show()
 
 if __name__ == "__main__":
-    # 데모: 엑셀 로드 사용 시
+    # Demo: excel data
     solver = LandmarkToHandPose.from_excel("handpose_lefthand_data2.xlsx", sheet_name=0, header=None, flip_x=False)
     frames = solver.compute(label="right")
     solver.plot(show_labels=True)

@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
 # ====== 설정 ======
-WIDTH, HEIGHT, FPS = 640, 480, 30
+WIDTH, HEIGHT, FPS = 1280, 720, 30
 MAX_NUM_HANDS = 4
 DET_CONF, TRK_CONF = 0.6, 0.6
 
