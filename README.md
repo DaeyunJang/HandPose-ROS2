@@ -108,5 +108,78 @@ git clone https://github.com/DaeyunJang/HandPose.git
   ros2 launch handpose_ros handpose_launch.py
 ```
 
+# ROS configurations
+
+## Interfaces
+`handpose_interfaces/Hands`
+| Field            | Type                  | Description             |
+| ---------------- | --------------------- | ----------------------- |
+| hands            | array\<HandLandmarks> | Multiple detected hands |
+
+`handpose_interfaces/HandLandmarks`
+| Field            | Type     | Description                 |
+| ---------------- | -------- | --------------------------- |
+| id               | int      | Hand index                  |
+| label            | string   | `left` / `right`            |
+| score            | float    | Detection confidence        |
+| handed\_index    | int      | Mediapipe internal index    |
+| width            | int      | Input image width           |
+| height           | int      | Input image height          |
+| landmarks\_norm  | float\[] | Normalized landmarks        |
+| landmarks\_canon | float\[] | Canonical (pixel) landmarks |
+| landmarks\_world | float\[] | World (metric) landmarks    |
+
+
+## Topic
+| Topic                                    | Msg type                    | Description                                          |
+| ---------------------------------------- | --------------------------- | ---------------------------------------------------- |
+| `/hands/detections`                      | `handpose_interfaces/Hands` | Detected hands (landmarks + metadata)                |
+| `/hands/points`                          | `sensor_msgs/PointCloud2`   | All hand landmarks as PointCloud                     |
+| `/hands/points/hand_left`                | `sensor_msgs/PointCloud2`   | Left hand landmarks                                  |
+| `/hands/points/hand_right`               | `sensor_msgs/PointCloud2`   | Right hand landmarks                                 |
+| `/mp_overlay_image`                      | `sensor_msgs/Image`         | Debug overlay image                                  |
+| `/tf`                                    | `tf2_msgs/TFMessage`        | TF transforms of wrist & joints                      |
+| `hand_{label}_{finger}_{joint}_{suffix}` | `tf2_msgs/TFMessage`        | Per-joint TFs (e.g. `hand_left_index_mcp_world_abs`) |
+
+
 ## Parameters
 check `handpose_ros/config/params.yaml`
+
+`mediapipe_hands_node`
+| Parameter                  | Type   | Default value                    | Description                    |
+| -------------------------- | ------ | -------------------------------- | ------------------------------ |
+| `image_topic`              | string | `/camera/camera/color/image_raw` | Input RGB image topic          |
+| `max_num_hands`            | int    | 2                                | Max hands to detect            |
+| `min_detection_confidence` | float  | 0.95                             | Detection confidence threshold |
+| `min_tracking_confidence`  | float  | 0.95                             | Tracking confidence threshold  |
+| `draw`                     | bool   | False                            | Overlay debug image            |
+| `flip_image`               | bool   | True                             | Flip input image horizontally  |
+| `use_pointcloud`           | bool   | True                             | Publish PointCloud2            |
+
+`handpose_tf_broadcaster`
+| Parameter                                  | Type   | Default value                              | Description                    |
+| ------------------------------------------ | ------ | ------------------------------------------ | ------------------------------ |
+| `hands_topic`                              | string | `hands/detections`                         | Input landmark topic           |
+| `use_depth`                                | bool   | False                                      | Use depth info                 |
+| `depth_topic`                              | string | `/camera/aligned_depth_to_color/image_raw` | Depth image topic              |
+| `camera_info_topic`                        | string | `/camera/camera/color/camera_info`         | Camera info topic              |
+| `camera_frame`                             | string | `camera_color_optical_frame`               | TF frame name                  |
+| `tf.norm.enable`                           | bool   | True                                       | Enable normalized TF           |
+| `tf.canonical.enable`                      | bool   | True                                       | Enable canonical TF            |
+| `tf.canonical_norm.enable`                 | bool   | True                                       | Enable canonical normalized TF |
+| `tf.canonical_norm.scale`                  | float  | `1/1280`                                   | Scale factor                   |
+| `tf.world_absolute_scale.enable`           | bool   | True                                       | Enable world absolute scaling  |
+| `tf.world_absolute_scale.target_length`    | float  | 0.06                                       | Wrist–MCP reference length (m) |
+| `tf.world_absolute_scale.finger_name`      | string | `index`                                    | Reference finger               |
+| `tf.world_absolute_scale.joint_name`       | string | `mcp`                                      | Reference joint                |
+| `tf.world_absolute_scale.eps`              | float  | 1e-6                                       | Numerical stability            |
+| `tf.world_absolute_scale.EMA_smooth_alpha` | float  | 0.3                                        | Exponential smoothing alpha    |
+| `tf.world_absolute_scale.suffix`           | string | `world_abs`                                | TF suffix                      |
+| `tf.world_absolute_scale.max_scale_step`   | float  | 0.0                                        | Per-frame clamp                |
+
+
+
+
+
+
+
