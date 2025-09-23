@@ -69,7 +69,7 @@ Ubuntu 22.04.6 LTS
 
 #### System Requirements
 - Ubuntu 22.04 (ROS2 humble)
-- Realsense camera (D415)
+- Realsense camera or Leap Motion (TBD)
 
 ---
 
