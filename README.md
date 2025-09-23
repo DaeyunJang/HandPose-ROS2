@@ -107,3 +107,6 @@ git clone https://github.com/DaeyunJang/HandPose.git
 ```bash
   ros2 launch handpose_ros handpose_launch.py
 ```
+
+## Parameters
+check `handpose_ros/config/params.yaml`
