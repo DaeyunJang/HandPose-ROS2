@@ -2,7 +2,8 @@
 This system reconstructs hand joint coordinate frames from 21 hand landmarks. It includes both a standalone script version and a ROS 2 version.
 
 ## DEMO
-https://github.com/user-attachments/assets/956f45fd-a752-4233-a894-6325916b71ae
+<!-- https://github.com/user-attachments/assets/956f45fd-a752-4233-a894-6325916b71ae -->
+https://github.com/user-attachments/assets/b2a561e7-b902-4bd1-a802-426902151187
 
 # Handpose ROS Integration
 
