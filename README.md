@@ -1,6 +1,7 @@
 # Welcome to HandPose-ROS
 This is Handpose ROS Integration Project.  
-This system reconstructs hand joint coordinate frames from 21 hand landmarks. It includes both a standalone script version and a ROS 2 version.
+This system reconstructs hand joint coordinate frames from 21 hand landmarks using google `mediapipe`.  
+It includes both a standalone script version and a ROS 2 version.
 
 ## DEMO
 <!-- https://github.com/user-attachments/assets/956f45fd-a752-4233-a894-6325916b71ae -->
@@ -31,8 +32,6 @@ So if you want to know Z value, make sure use depth module and take the wrist di
 - To approximate metric scale, the wrist–index MCP distance is assumed to be `0.08 m (80 mm)` (based on author’s hand).
 - This scaling is applied uniformly, so that the hand size remains constant regardless of the screen position.
 - The resulting transforms are suffixed with `world_abs`.
-
----
 
 ### 2. Coordinate frame generation (ROS TF)
 - Each landmark is just a point, so local coordinate systems must be defined.
