@@ -17,8 +17,8 @@ It detects hand landmarks from a camera stream, scales them into canonical and w
 ## Detail Logic
 ### ⚠️ Note  
 In this project, I didn't use depth camera.
-<span style="background-color: #fff59d">So Z value of wrist is always zero.</span>  
-So if you want to know Z value, make sure depth module and take the wrist distance from camera and add.
+<span style="background-color: #fff59d">**So Z value of wrist is always zero.**</span>  
+So if you want to know Z value, make sure use depth module and take the wrist distance from camera. And add depth value to all joint's points
 
 ### 1. Landmark extraction
 - MediaPipe Hands is used to get 21 hand landmarks per hand.
